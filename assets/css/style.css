@@ -11,7 +11,7 @@
 
     --white: #FFFFFF;
     --warm-white: #F9FAFB;
-    --muted-gray: #6B7280;
+    --muted-gray: #9CA3AF;
     --slate-text: #94A3B8;
 
     /* Typography */
@@ -31,6 +31,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--system-green);
+    outline-offset: 4px;
 }
 
 html {
@@ -127,7 +132,9 @@ h6 {
 .section-title {
     font-size: 2rem;
     color: var(--white);
-    white-space: nowrap;
+    white-space: normal;
+    /* Allow wrapping on mobile */
+    word-break: break-word;
 }
 
 .header-line {
@@ -150,6 +157,10 @@ h6 {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     border-color: rgba(255, 255, 255, 0.15);
+}
+
+.structure-card:active {
+    transform: translateY(0) scale(0.99);
 }
 
 /* Buttons */
@@ -190,6 +201,10 @@ h6 {
     border-color: var(--system-green);
     color: var(--system-green);
     transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* Header & Nav */
@@ -281,6 +296,21 @@ h6 {
     border-color: var(--system-green);
 }
 
+.root-logout-btn {
+    display: none !important;
+}
+
+body.root-mode .root-logout-btn {
+    display: inline-block !important;
+    color: #FF003C;
+    border-color: #FF003C;
+}
+
+body.root-mode .root-logout-btn:hover {
+    background: #FF003C;
+    color: var(--white);
+}
+
 .hamburger {
     display: none;
     cursor: pointer;
@@ -303,8 +333,66 @@ h6 {
     align-items: center;
 }
 
+/* User Profile Picture */
+.hero-profile-pic {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    position: relative;
+    padding: 6px;
+    /* Space for the architectural border */
+    background: var(--carbon);
+    border: 1px dashed var(--border-color);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.05);
+}
+
+.hero-profile-pic::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--system-green);
+    top: 0;
+    left: 0;
+    animation: subtlePulse 4s ease-in-out infinite;
+    pointer-events: none;
+    transition: var(--transition);
+    opacity: 0;
+}
+
+.root-mode .hero-profile-pic::before {
+    opacity: 1;
+}
+
+.hero-profile-pic.away {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+.hero-profile-pic.away::before {
+    border-color: #F59E0B;
+}
+
+.hero-profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    filter: grayscale(15%) contrast(1.1);
+    transition: var(--transition);
+}
+
+.hero-profile-pic:hover img {
+    filter: grayscale(0%) contrast(1);
+    transform: scale(1.05);
+}
+
 .system-status {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 2rem;
@@ -315,12 +403,52 @@ h6 {
     background: rgba(31, 41, 55, 0.5);
 }
 
+body.root-mode .system-status {
+    display: flex;
+}
+
 .status-indicator {
     width: 8px;
     height: 8px;
     background-color: var(--system-green);
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    animation: statusPulse 2s ease-in-out infinite;
+}
+
+.status-indicator.away {
+    background-color: #F59E0B;
+    /* Orange */
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    animation: statusPulseAway 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes statusPulseAway {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+        transform: scale(1.1);
+    }
 }
 
 .hero-content .title {
@@ -348,6 +476,83 @@ h6 {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+}
+
+/* CTF Panel */
+.ctf-panel {
+    display: none;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px dashed var(--system-green);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+    max-width: 500px;
+}
+
+.root-mode .ctf-panel {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.ctf-header {
+    color: var(--system-green);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ctf-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1.5rem;
+}
+
+.ctf-list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.ctf-status {
+    color: var(--muted-gray);
+}
+
+.ctf-status.unlocked {
+    color: var(--system-green);
+}
+
+.ctf-flag {
+    color: var(--slate-text);
+}
+
+.ctf-flag.unlocked {
+    color: var(--white);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.btn.ctf-share-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+    border-color: #0077b5;
+    /* LinkedIn color */
+    color: #0077b5;
+}
+
+.btn.ctf-share-btn:hover {
+    background: rgba(0, 119, 181, 0.1);
+    border-color: #0077b5;
+    color: #0077b5;
+    transform: translateY(-2px);
+}
+
+.btn.ctf-share-btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* Hero Visual - Architectural Blueprint */
@@ -691,6 +896,131 @@ h6 {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Root Mode */
+body.root-mode {
+    --system-green: #00FF41;
+    --soft-emerald: #008F11;
+    --deep-slate: #000000;
+    --carbon: #050505;
+    --charcoal: #0a0a0a;
+}
+
+body.root-mode *:not(i):not(.fas):not(.fab) {
+    font-family: var(--font-code) !important;
+}
+
+.hidden-skill {
+    display: none !important;
+}
+
+body.root-mode .hidden-skill {
+    display: block !important;
+    animation: fadeInReveal 0.8s ease-out forwards;
+}
+
+@keyframes fadeInReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body.root-mode .footer .text-muted i.fa-flag,
+body.root-mode .footer .text-muted span[data-i18n="footer.secretHint"] {
+    color: var(--system-green);
+    text-shadow: 0 0 8px var(--system-green);
+    opacity: 1 !important;
+    transition: all 0.5s ease;
+}
+
+body.root-mode .footer>div>div[style*="opacity"] {
+    opacity: 1 !important;
+}
+
+body.root-mode .bg-grid {
+    background-image:
+        linear-gradient(to right, rgba(0, 255, 65, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 255, 65, 0.08) 1px, transparent 1px);
+}
+
+body.root-mode .bg-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image:
+        linear-gradient(to bottom, transparent 0%, transparent 40%, rgba(0, 255, 65, 0.9) 50%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, transparent 20%, rgba(0, 255, 65, 0.6) 30%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(0, 255, 65, 0.8) 80%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0, 255, 65, 0.7) 20%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(0, 255, 65, 0.9) 60%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, transparent 80%, rgba(0, 255, 65, 0.8) 90%, transparent 100%);
+    background-size: 1px 200vh;
+    background-repeat: repeat-y;
+    background-position:
+        150px 0,
+        350px 0,
+        650px 0,
+        1050px 0,
+        1450px 0,
+        1850px 0;
+    animation: rootVerticalBeam 12s linear infinite;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+@keyframes rootVerticalBeam {
+    0% {
+        background-position:
+            150px -200vh,
+            350px -200vh,
+            650px -200vh,
+            1050px -200vh,
+            1450px -200vh,
+            1850px -200vh;
+    }
+
+    100% {
+        background-position:
+            150px 0,
+            350px 0,
+            650px 0,
+            1050px 0,
+            1450px 0,
+            1850px 0;
+    }
+}
+
+/* Konami Code God Mode */
+.node.konami-active {
+    animation: godModeSpin 1.5s linear infinite;
+    border-color: #F59E0B;
+    color: #F59E0B;
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
+    z-index: 10;
+}
+
+@keyframes godModeSpin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
 }
 
 /* Responsive */

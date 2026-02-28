@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Senior Backend .NET Engineer specialized in distributed systems, AWS and AI-driven engineering.">
-    <title>Lucas Apoena | Software Engineer</title>
+        content="Senior .NET Developer (Full-Stack) focused on system modernization and applied AI, with strong backend and cloud expertise.">
+    <title>Lucas Apoena | Senior .NET Developer (Full-Stack)</title>
 
     <!-- Meta Tags -->
-    <meta property="og:image" content="assets/img/cropped-logo_lucasapoena.png">
-    <link rel="icon" href="assets/img/cropped-logo_lucasapoena.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="assets/img/cropped-logo_lucasapoena.png">
+    <meta property="og:image" content="assets/img/logo_icon-300x300.png">
+    <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+    <link rel="icon" href="assets/img/logo_icon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="assets/img/logo_icon-192x192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="assets/img/logo_icon-180x180.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +23,7 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="assets/css/style.css?v=7">
 
     <!-- FontAwesome (Icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -44,16 +46,28 @@
                     <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Arquitetura</a></li>
                     <li><a href="#contact" class="nav-link" data-i18n="nav.connect">Conectar</a></li>
                     <li>
-                        <div class="language-switch">
-                            <button data-lang="pt" class="active-lang">PT</button>
-                            <button data-lang="en">EN</button>
-                            <button data-lang="es">ES</button>
+                        <div class="language-switch" aria-label="Language selection">
+                            <button data-lang="pt" class="active-lang" aria-label="Português">PT</button>
+                            <button data-lang="en" aria-label="English">EN</button>
+                            <button data-lang="es" aria-label="Español">ES</button>
+                            <button id="root-logout-btn" class="root-logout-btn" title="Exit Root Mode"
+                                aria-label="Exit Root Mode"><i class="fas fa-power-off"></i></button>
                         </div>
                     </li>
                 </ul>
 
-                <div class="hamburger">
-                    <i class="fas fa-bars"></i>
+                <div class="hamburger" tabindex="0" role="button" aria-label="Toggle navigation menu">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="icon-bars">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" class="icon-times" style="display: none;">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </div>
             </nav>
         </div>
@@ -64,10 +78,12 @@
         <section id="hero" class="hero section">
             <div class="container hero-container">
                 <div class="hero-content reveal">
+                    <div class="hero-profile-pic">
+                        <img src="assets/img/profile.jpg" alt="Lucas Apoena Profile">
+                    </div>
                     <div class="system-status">
                         <span class="status-indicator"></span>
-                        <span class="status-text font-code" data-i18n="hero.status">STATUS: ONLINE // VERSÃO:
-                            10.0</span>
+                        <span class="status-text font-code" data-i18n="hero.statusOnline">STATUS: ONLINE</span>
                     </div>
                     <h1 class="title" data-i18n="hero.name">Lucas Apoena</h1>
                     <h2 class="role">
@@ -82,7 +98,32 @@
                     <div class="hero-actions">
                         <a href="#about" class="btn btn-primary" data-i18n="hero.btnPrimary">Inicializar Sistema</a>
                         <a href="#contact" class="btn btn-secondary"><span data-i18n="hero.btnSecondary">Abrir
-                                Conexão</span> <i class="fas fa-arrow-right ml-2"></i></a>
+                                Conexão</span> <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                                stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                class="ml-2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></a>
+                    </div>
+
+                    <!-- Apoena Flag Challenge Panel (Root Mode Only) -->
+                    <div id="ctf-panel" class="ctf-panel">
+                        <div class="ctf-header font-code" data-i18n="ctf.title">Apoena Flag Challenge</div>
+                        <ul class="ctf-list font-code">
+                            <li><span id="flag-root-status" class="ctf-status">[ ]</span> <span
+                                    class="ctf-flag">flag{root_unlocked}</span></li>
+                            <li><span id="flag-konami-status" class="ctf-status">[ ]</span> <span
+                                    class="ctf-flag">flag{konami_activated}</span></li>
+                            <li><span id="flag-snake-status" class="ctf-status">[ ]</span> <span
+                                    class="ctf-flag">flag{snake_master}</span></li>
+                            <li><span id="flag-42-status" class="ctf-status">[ ]</span> <span
+                                    class="ctf-flag">flag{hitchhiker_42}</span></li>
+                        </ul>
+                        <button id="ctf-share-btn" class="btn btn-secondary ctf-share-btn" onclick="shareCTFProgress()"
+                            aria-label="Share CTF Progress">
+                            <i class="fab fa-linkedin" style="margin-right: 8px;"></i> <span data-i18n="ctf.share">Share
+                                Progress</span>
+                        </button>
                     </div>
                 </div>
 
@@ -109,7 +150,7 @@
                         <div class="connection line-3"></div>
                         <div class="node ai-node">
                             <i class="fas fa-robot"></i>
-                            <span class="font-code text-center">AI Integration<br>Service (LLM)</span>
+                            <span class="font-code text-center">Applied AI Layer <br /> (LLM)</span>
                         </div>
                         <div class="connection line-4"></div>
                         <div class="node data-node">
@@ -240,6 +281,25 @@
                             <li>LLM APIs</li>
                         </ul>
                     </div>
+
+                    <!-- Skill Card 5: Chaos -->
+                    <div class="structure-card reveal hidden-skill" style="transition-delay: 400ms;">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.unlock</span>
+                        </div>
+                        <h3 data-i18n="skills.chaos.title">Skill Unlocked: Gamer & Chaos</h3>
+                        <p data-i18n="skills.chaos.desc">Counter-Strike • Age of Empires • Command & Conquer<br>Se
+                            quiser jogar, chama — só não prometo ganhar nada.</p>
+                        <ul class="tech-list font-code">
+                            <li data-i18n="skills.chaos.tags.0">Strategy</li>
+                            <li data-i18n="skills.chaos.tags.1">FPS</li>
+                            <li data-i18n="skills.chaos.tags.2">RTS</li>
+                            <li data-i18n="skills.chaos.tags.3">Casual</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -299,12 +359,20 @@
                             id="current-year"></span>.1.0</span>
                 </div>
             </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <div class="font-code text-muted" style="font-size: 0.70rem; opacity: 0.5;">
+                    <i class="fas fa-flag" style="margin-right: 4px; cursor: help;" title="Pode conter CTF..."
+                        data-i18n-title="footer.ctfTitle"></i>
+                    <span id="footer-secret-text" data-i18n="footer.secretHint">Algumas camadas só se revelam aos mais
+                        atentos.</span>
+                </div>
+            </div>
         </div>
     </footer>
 
     <!-- JS -->
-    <script src="js/main.js"></script>
-    <script src="js/i18n.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/i18n.js"></script>
 </body>
 
 </html>
