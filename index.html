@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Senior Backend .NET Engineer specialized in distributed systems, AWS and AI-driven engineering.">
+    <title>Lucas Apoena | Software Engineer</title>
+
+    <!-- Meta Tags -->
+    <meta property="og:image" content="assets/img/cropped-logo_lucasapoena.png">
+    <link rel="icon" href="assets/img/cropped-logo_lucasapoena.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/img/cropped-logo_lucasapoena.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css?v=7">
+
+    <!-- FontAwesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Architect Grid Background -->
+    <div class="bg-grid"></div>
+
+    <!-- Header Navigation -->
+    <header id="header" class="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">sys.</span>apoena
+            </a>
+
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#about" class="nav-link" data-i18n="nav.about">Sobre</a></li>
+                    <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Arquitetura</a></li>
+                    <li><a href="#contact" class="nav-link" data-i18n="nav.connect">Conectar</a></li>
+                    <li>
+                        <div class="language-switch">
+                            <button data-lang="pt" class="active-lang">PT</button>
+                            <button data-lang="en">EN</button>
+                            <button data-lang="es">ES</button>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+            <div class="container hero-container">
+                <div class="hero-content reveal">
+                    <div class="system-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text font-code" data-i18n="hero.status">STATUS: ONLINE // VERSÃO:
+                            10.0</span>
+                    </div>
+                    <h1 class="title" data-i18n="hero.name">Lucas Apoena</h1>
+                    <h2 class="role">
+                        <span data-i18n="hero.role">Desenvolvedor Full-Stack</span>
+                        <br>
+                        <span class="accent-text" id="hero-role-highlight">estudando Arquitetura e IA</span>
+                    </h2>
+                    <p class="description" data-i18n="hero.description">
+                        Construindo sistemas escaláveis, estudando arquitetura de software e explorando aplicações
+                        práticas de Inteligência Artificial.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#about" class="btn btn-primary" data-i18n="hero.btnPrimary">Inicializar Sistema</a>
+                        <a href="#contact" class="btn btn-secondary"><span data-i18n="hero.btnSecondary">Abrir
+                                Conexão</span> <i class="fas fa-arrow-right ml-2"></i></a>
+                    </div>
+                </div>
+
+                <div class="hero-visual reveal">
+                    <!-- Blueprint Visual -->
+                    <div class="blueprint-diagram">
+                        <div class="blueprint-grid"></div>
+
+                        <!-- Main Nodes -->
+                        <div class="node gw-node">
+                            <i class="fas fa-network-wired"></i>
+                            <span class="font-code">API Gateway</span>
+                        </div>
+                        <div class="connection line-1"></div>
+                        <div class="node compute-node">
+                            <i class="fas fa-microchip"></i>
+                            <span class="font-code text-center">Application Services<br>(Cloud Compute)</span>
+                        </div>
+                        <div class="connection line-2"></div>
+                        <div class="node messaging-node">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <span class="font-code text-center">Messaging Layer<br>(Event-Driven)</span>
+                        </div>
+                        <div class="connection line-3"></div>
+                        <div class="node ai-node">
+                            <i class="fas fa-robot"></i>
+                            <span class="font-code text-center">AI Integration<br>Service (LLM)</span>
+                        </div>
+                        <div class="connection line-4"></div>
+                        <div class="node data-node">
+                            <i class="fas fa-database"></i>
+                            <span class="font-code text-center">Data &amp; Storage<br>Layer</span>
+                        </div>
+                    </div>
+
+                    <!-- Observability Footer Bar -->
+                    <div class="obs-bar">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="font-code">Observability (Logs, Metrics, Tracing)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about section bg-carbon">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">01 // <span class="accent-text"
+                            data-i18n="about.sectionTitle">Identidade</span></h2>
+                    <div class="header-line"></div>
+                </div>
+
+                <div class="about-content reveal">
+                    <div class="about-text structure-card">
+                        <p data-i18n="about.p1">
+                            Sou desenvolvedor focado em sistemas robustos, com mais de <strong>10 anos de
+                                experiência</strong> na área de T.I. Iniciei aprendendo programação de forma
+                            independente e sou formado em Sistemas de Informação.
+                        </p>
+                        <p data-i18n="about.p2">
+                            Atuando como <strong>Engenheiro Full-Stack</strong>, construo desde a modelagem de dados e
+                            serviços backend de alta confiabilidade até a entrega de interfaces precisas e responsivas.
+                        </p>
+                        <p data-i18n="about.p3">
+                            Hoje estou aprofundando meus estudos em <strong>Arquitetura de Software</strong>, boas
+                            práticas de engenharia (Clean Architecture, DDD) e aplicações de <strong>Inteligência
+                                Artificial</strong>, com foco em construir sistemas mais escaláveis e inteligentes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">02 // <span class="accent-text"
+                            data-i18n="skills.sectionTitle">Arquitetura & Skills</span></h2>
+                    <div class="header-line"></div>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Skill Card 1 -->
+                    <div class="structure-card reveal">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-hdd"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.core</span>
+                        </div>
+                        <h3 data-i18n="skills.backend.title">Backend</h3>
+                        <p data-i18n="skills.backend.desc">Desenvolvimento de sistemas escaláveis com forte aderência
+                            arquitetural. Criação de APIs RESTful, serviços assíncronos e microsserviços.</p>
+                        <ul class="tech-list font-code">
+                            <li>C# / .NET</li>
+                            <li>Java</li>
+                            <li>PHP</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 2 -->
+                    <div class="structure-card reveal" style="transition-delay: 100ms;">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.data</span>
+                        </div>
+                        <h3 data-i18n="skills.data.title">Dados</h3>
+                        <p data-i18n="skills.data.desc">Modelagem relacional otimizada e foco na integridade.
+                            Experiência com queries complexas, migrações e tunning de performance.</p>
+                        <ul class="tech-list font-code">
+                            <li>SQL Server</li>
+                            <li>PostgreSQL</li>
+                            <li>Entity Framework</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 3 (Replacing Frontend with Cloud) -->
+                    <div class="structure-card reveal" style="transition-delay: 200ms;">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.cloud</span>
+                        </div>
+                        <h3 data-i18n="skills.cloud.title">Cloud & Sistemas Distribuídos</h3>
+                        <p data-i18n="skills.cloud.desc">Projetando arquiteturas resilientes e distribuídas. Sólida base
+                            em AWS, desenvolvimento nativo em nuvem, e pipelines de CI/CD.</p>
+                        <ul class="tech-list font-code">
+                            <li>AWS</li>
+                            <li>CI/CD</li>
+                            <li>Distributed Systems</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 4: Architecture & AI -->
+                    <div class="structure-card reveal" style="transition-delay: 300ms;">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.ai</span>
+                        </div>
+                        <h3 data-i18n="skills.ai.title">Arquitetura & IA</h3>
+                        <p data-i18n="skills.ai.desc">Estudando padrões arquiteturais, Clean Architecture, DDD, e
+                            explorando aplicações práticas de Inteligência Artificial no desenvolvimento de sistemas.
+                        </p>
+                        <ul class="tech-list font-code">
+                            <li>Clean Architecture</li>
+                            <li>DDD</li>
+                            <li>AI Integration</li>
+                            <li>LLM APIs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">03 // <span class="accent-text"
+                            data-i18n="connect.sectionTitle">Conexão</span></h2>
+                    <div class="header-line"></div>
+                </div>
+
+                <div class="contact-wrapper reveal">
+                    <div class="contact-card structure-card">
+                        <div class="contact-header">
+                            <h3 data-i18n="connect.cardTitle">Iniciar Handshake</h3>
+                            <p class="text-muted" data-i18n="connect.cardDesc">Aberto a discussões sobre arquitetura de
+                                sistemas, oportunidades de engenharia e colaborações técnicas.</p>
+                        </div>
+
+                        <div class="contact-actions">
+                            <a href="mailto:contato@lucasapoena.eti.br" class="cta-link cta-primary">
+                                <i class="fas fa-envelope"></i>
+                                <span>contato@lucasapoena.eti.br</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/lucasapoena/" target="_blank"
+                                class="cta-link cta-secondary">
+                                <i class="fab fa-linkedin"></i>
+                                <span data-i18n="connect.linkedin">Siga no LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/lucasapoena" target="_blank" class="cta-link cta-secondary">
+                                <i class="fab fa-github"></i>
+                                <span data-i18n="connect.github">Repositório GitHub</span>
+                            </a>
+                            <a href="https://github.com/lucasapoena/portfolio/issues/new" target="_blank"
+                                class="cta-link cta-tertiary">
+                                <i class="fas fa-code-branch"></i>
+                                <span data-i18n="connect.issue">Abrir um GitHub Issue</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer bg-carbon">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-accent">sys.</span>apoena
+                </div>
+                <div class="footer-links">
+                    <span class="font-code text-muted"><span data-i18n="footer.buildVersion">BUILD VERSION:</span> <span
+                            id="current-year"></span>.1.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+</body>
+
+</html>
