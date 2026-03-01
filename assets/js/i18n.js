@@ -64,12 +64,13 @@ const translations = {
             buildVersion: "BUILD VERSION:",
             secretHint: "Algumas camadas só se revelam aos mais atentos.",
             secretHintRoot: '"Eu só posso lhe mostrar a porta, mas é você quem tem que atravessá-la." - Morpheus',
-            ctfTitle: "Pode conter CTF..."
+            ctfTitle: "Pode conter CTF...",
+            activateCtfBtn: "[ Ativar Apoena Flag Challenge ]"
         },
         ctf: {
             title: "Apoena Flag Challenge",
             share: "Compartilhar Progresso",
-            shareTemplate: "Acabei de desbloquear {0}/4 flags no Apoena Flag Challenge! 🏴‍☠️ Consegue achar todas? https://lucasapoena.eti.br"
+            shareTemplate: "Acabei de desbloquear {0}/5 flags no Apoena Flag Challenge! 🏴‍☠️ Consegue achar todas? https://lucasapoena.eti.br"
         },
         consoleMessage: "Saudações, colega desenvolvedor. Explorando o código-fonte? Vamos nos conectar: https://www.linkedin.com/in/lucasapoena/",
         consoleLogout: "Conexão Root encerrada.",
@@ -145,12 +146,13 @@ const translations = {
             buildVersion: "BUILD VERSION:",
             secretHint: "Some layers only reveal themselves to the observant.",
             secretHintRoot: '"I can only show you the door, you\'re the one that has to walk through it." - Morpheus',
-            ctfTitle: "Might contain CTF..."
+            ctfTitle: "Might contain CTF...",
+            activateCtfBtn: "[ Activate Apoena Flag Challenge ]"
         },
         ctf: {
             title: "Apoena Flag Challenge",
             share: "Share Progress",
-            shareTemplate: "I just unlocked {0}/4 flags on the Apoena Flag Challenge! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br"
+            shareTemplate: "I just unlocked {0}/5 flags on the Apoena Flag Challenge! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br"
         },
         consoleMessage: "Greetings, fellow developer. Exploring the source, are we? Let's connect: https://www.linkedin.com/in/lucasapoena/",
         consoleLogout: "Root connection terminated.",
@@ -228,12 +230,13 @@ const translations = {
             buildVersion: "VERSIÓN DE BUILD:",
             secretHint: "Algunas capas solo se revelan a quienes saben observar.",
             secretHintRoot: '"Solo puedo mostrarte la puerta, tú eres quien tiene que cruzarla." - Morfeo',
-            ctfTitle: "Puede contener CTF..."
+            ctfTitle: "Puede contener CTF...",
+            activateCtfBtn: "[ Activar Apoena Flag Challenge ]"
         },
         ctf: {
             title: "Apoena Flag Challenge",
             share: "Compartir Progreso",
-            shareTemplate: "¡Acabo de desbloquear {0}/4 flags en el Apoena Flag Challenge! 🏴‍☠️ ¿Puedes encontrarlas todas? https://lucasapoena.eti.br"
+            shareTemplate: "¡Acabo de desbloquear {0}/5 flags en el Apoena Flag Challenge! 🏴‍☠️ ¿Puedes encontrarlas todas? https://lucasapoena.eti.br"
         },
         consoleMessage: "Saludos, colega desarrollador. ¿Explorando el código fuente? Conectemos: https://www.linkedin.com/in/lucasapoena/",
         consoleLogout: "Conexión Root terminada.",

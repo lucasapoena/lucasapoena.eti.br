@@ -490,7 +490,7 @@ body.root-mode .system-status {
     max-width: 500px;
 }
 
-.root-mode .ctf-panel {
+.root-mode .ctf-panel, .ctf-panel.force-visible {
     display: block;
     animation: fadeIn 0.5s ease-out;
 }

@@ -116,6 +116,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // 5. CTF Manual Activation
+    const activateCtfBtn = document.getElementById('activate-ctf-btn');
+    if (activateCtfBtn) {
+        activateCtfBtn.addEventListener('click', () => {
+            if (typeof window.unlockApoenaFlag === 'function') {
+                window.unlockApoenaFlag('challenge_accepted');
+            }
+            const panel = document.getElementById('ctf-panel');
+            if (panel) {
+                panel.classList.add('force-visible');
+                localStorage.setItem('apoena_ctf_visible', 'true');
+                panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (typeof window.updateCtfPanel === 'function') {
+                    window.updateCtfPanel();
+                }
+            }
+        });
+    }
+
+    const ctfCloseBtn = document.getElementById('ctf-close-btn');
+    if (ctfCloseBtn) {
+        ctfCloseBtn.addEventListener('click', () => {
+            const panel = document.getElementById('ctf-panel');
+            if (panel) {
+                panel.classList.remove('force-visible');
+                localStorage.setItem('apoena_ctf_visible', 'false');
+            }
+        });
+    }
+
     const currentLang = localStorage.getItem('site-lang') || 'pt';
     const consoleMsg = typeof translations !== 'undefined' && translations[currentLang] ? translations[currentLang].consoleMessage : "Greetings, fellow developer. Exploring the source, are we? Let's connect: https://www.linkedin.com/in/lucasapoena/";
 
@@ -522,7 +552,8 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('apoena_ctf_unlocked', JSON.stringify(unlocked));
             window.sysLog(`FLAG DISCOVERED: ${flagName}`, true);
         }
-        if (document.body.classList.contains('root-mode')) {
+        const panel = document.getElementById('ctf-panel');
+        if (document.body.classList.contains('root-mode') || (panel && panel.classList.contains('force-visible'))) {
             window.updateCtfPanel();
         }
     };
@@ -530,20 +561,25 @@ document.addEventListener('DOMContentLoaded', () => {
     window.updateCtfPanel = function () {
         let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
         const flagMapping = {
-            'root_unlocked': 'flag-root-status',
-            'konami_activated': 'flag-konami-status',
-            'snake_master': 'flag-snake-status',
-            'hitchhiker_42': 'flag-42-status'
+            'challenge_accepted': { status: 'flag-start-status', textId: 'flag-start-text', textVal: 'flag{challenge_accepted}' },
+            'root_unlocked': { status: 'flag-root-status', textId: 'flag-root-text', textVal: 'flag{root_unlocked}' },
+            'konami_activated': { status: 'flag-konami-status', textId: 'flag-konami-text', textVal: 'flag{konami_activated}' },
+            'snake_master': { status: 'flag-snake-status', textId: 'flag-snake-text', textVal: 'flag{snake_master}' },
+            'hitchhiker_42': { status: 'flag-42-status', textId: 'flag-42-text', textVal: 'flag{hitchhiker_42}' }
         };
 
         unlocked.forEach(flag => {
-            if (flagMapping[flag]) {
-                const statusEl = document.getElementById(flagMapping[flag]);
+            const mapInfo = flagMapping[flag];
+            if (mapInfo) {
+                const statusEl = document.getElementById(mapInfo.status);
                 if (statusEl) {
                     statusEl.textContent = '[✔]';
                     statusEl.classList.add('unlocked');
-                    const flagEl = statusEl.nextElementSibling;
-                    if (flagEl) flagEl.classList.add('unlocked');
+                    const flagEl = document.getElementById(mapInfo.textId);
+                    if (flagEl) {
+                        flagEl.classList.add('unlocked');
+                        flagEl.textContent = mapInfo.textVal;
+                    }
                 }
             }
         });
@@ -561,11 +597,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentLang = localStorage.getItem('site-lang') || 'pt';
         const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
 
-        let msgTemplate = trans && trans.ctf && trans.ctf.shareTemplate ? trans.ctf.shareTemplate : "I just unlocked {0}/4 flags on the Apoena Flag Challenge! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br";
+        let msgTemplate = trans && trans.ctf && trans.ctf.shareTemplate ? trans.ctf.shareTemplate : "I just unlocked {0}/5 flags on the Apoena Flag Challenge! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br";
         let finalMsg = msgTemplate.replace('{0}', unlocked.length);
 
         window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(finalMsg)}`, '_blank');
     };
+
+    // Restore panel visibility on load
+    const ctfPanel = document.getElementById('ctf-panel');
+    if (ctfPanel && localStorage.getItem('apoena_ctf_visible') === 'true') {
+        ctfPanel.classList.add('force-visible');
+        if (typeof window.updateCtfPanel === 'function') {
+            window.updateCtfPanel();
+        }
+    }
 
     setInterval(() => {
         if (document.body.classList.contains('root-mode') && !document.getElementById('snakeGame')) {
