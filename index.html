@@ -18,15 +18,23 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 
     <!-- CSS -->
+    <link rel="preload" href="assets/css/style.css?v=7" as="style">
     <link rel="stylesheet" href="assets/css/style.css?v=7">
 
     <!-- FontAwesome (Icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </noscript>
 </head>
 
 <body>
@@ -79,7 +87,8 @@
             <div class="container hero-container">
                 <div class="hero-content reveal">
                     <div class="hero-profile-pic">
-                        <img src="assets/img/profile.jpg" alt="Lucas Apoena Profile">
+                        <img src="assets/img/profile.jpg" alt="Lucas Apoena Profile" width="168" height="168"
+                            fetchpriority="high">
                     </div>
                     <div class="system-status">
                         <span class="status-indicator"></span>
