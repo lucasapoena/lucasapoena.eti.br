@@ -201,9 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
-            // In case they have the flag but haven't made it visible:
-            // Since the user might expect it to restore if the flag is unlocked.
-            // But let's rely just on apoena_ctf_visible.
+
         }
     }
 
@@ -264,8 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const activatingMsg = trans && trans.rootActivating ? trans.rootActivating : "ACTIVATING ROOT MODE...";
                 const grantedMsg = trans && trans.rootGranted ? trans.rootGranted : "Access granted...";
 
-                window.sysLog(activatingMsg, false); // sys.apoena
-                window.sysLog(grantedMsg, true);     // root@sys.apoena
+                window.sysLog(activatingMsg, false);
+                window.sysLog(grantedMsg, true);
 
                 if (isRootMode && typeof window.unlockApoenaFlag === 'function') {
                     window.unlockApoenaFlag(atob('cm9vdF91bmxvY2tlZA=='));
@@ -321,6 +319,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    window.addEventListener('touchstart', e => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', e => {
+        touchEndY = e.changedTouches[0].screenY;
+        if (touchStartY - touchEndY > 50) {
+            if (typeof logoClickCount !== 'undefined' && logoClickCount >= 5 && logoClickCount < 7) {
+                if (typeof window.unlockApoenaFlag === 'function') {
+                    window.unlockApoenaFlag(atob('a29uYW1pX2FjdGl2YXRlZA=='));
+                }
+                activateGodMode();
+                logoClickCount = 0;
+            }
+        }
+    }, { passive: true });
+
     window._sys_agm = function () {
         if (typeof window.unlockApoenaFlag === 'function') {
             window.unlockApoenaFlag(atob('cmVjZWl2ZV9tb2RlX2dhbWVy'));
@@ -336,6 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const diagram = document.querySelector('.blueprint-diagram');
         if (!diagram) return;
+
+        diagram.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
         const obsBarText = document.querySelector('.obs-bar .font-code');
         let originalObsText = "";
@@ -400,7 +420,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let gameLoop;
         let changingDirection = false;
 
-        document.body.style.overflow = 'hidden';
+        // Aguarda a animação de scroll finalizar para travar a tela
+        setTimeout(() => {
+            document.body.style.overflow = 'hidden';
+        }, 600);
 
         const directionHandler = (event) => {
             if (changingDirection) return;
@@ -658,18 +681,80 @@ document.addEventListener('DOMContentLoaded', () => {
     window.unlockApoenaFlag = function (flagName) {
         let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
         if (!unlocked.includes(flagName)) {
+            window.pendingCTFFlag = flagName;
+            const modal = document.getElementById('flag-modal');
+            if (modal) {
+                const desc = modal.querySelector('.flag-modal-desc');
+                if (desc) {
+                    const currentLang = localStorage.getItem('site-lang') || 'en';
+                    const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
+
+                    let descKey = 'ctf.modalDescDefault';
+                    if (flagName === atob('cm9vdF91bmxvY2tlZA==') || flagName === atob('Y2hhbGxlbmdlX2FjY2VwdGVk')) {
+                        descKey = 'ctf.modalDescRoot';
+                    } else if (flagName === atob('a29uYW1pX2FjdGl2YXRlZA==') || flagName === atob('cmVjZWl2ZV9tb2RlX2dhbWVy')) {
+                        descKey = 'ctf.modalDescGamer';
+                    }
+
+                    desc.setAttribute('data-i18n', descKey);
+
+                    if (trans && trans.ctf) {
+                        let innerText = trans.ctf.modalDescDefault;
+                        if (descKey === 'ctf.modalDescRoot') innerText = trans.ctf.modalDescRoot;
+                        else if (descKey === 'ctf.modalDescGamer') innerText = trans.ctf.modalDescGamer;
+                        desc.innerHTML = innerText;
+                    }
+                }
+                modal.classList.add('visible');
+            }
+        } else {
+            const panel = document.getElementById('ctf-panel');
+            if (document.body.classList.contains('root-mode') || (panel && panel.classList.contains('force-visible'))) {
+                window.updateCtfPanel();
+            }
+        }
+    };
+
+    window.capturePendingFlag = function () {
+        if (!window.pendingCTFFlag) return;
+        let flagName = window.pendingCTFFlag;
+        window.pendingCTFFlag = null;
+
+        let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
+        if (!unlocked.includes(flagName)) {
             unlocked.push(flagName);
+
+            const challengeAcceptedFlag = atob('Y2hhbGxlbmdlX2FjY2VwdGVk');
+            if (flagName !== challengeAcceptedFlag && !unlocked.includes(challengeAcceptedFlag)) {
+                unlocked.push(challengeAcceptedFlag);
+            }
+
             localStorage.setItem('apoena_ctf_unlocked', JSON.stringify(unlocked));
 
-            const currentLang = localStorage.getItem('site-lang') || 'pt';
+            const currentLang = localStorage.getItem('site-lang') || 'en';
             const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
             let msg = trans && trans.flagDiscovered ? trans.flagDiscovered.replace('{0}', flagName) : `FLAG DISCOVERED: ${flagName}`;
             window.sysLog(msg, true);
         }
-        const panel = document.getElementById('ctf-panel');
-        if (document.body.classList.contains('root-mode') || (panel && panel.classList.contains('force-visible'))) {
-            window.updateCtfPanel();
+
+        const modal = document.getElementById('flag-modal');
+        if (modal) {
+            modal.classList.remove('visible');
         }
+
+        const ctfPanel = document.getElementById('ctf-panel');
+        if (ctfPanel) {
+            ctfPanel.classList.add('force-visible');
+            localStorage.setItem('apoena_ctf_visible', 'true');
+            const btn = document.getElementById('activate-ctf-btn');
+            if (btn) {
+                btn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
+                const currentLang = localStorage.getItem('site-lang') || 'en';
+                if (typeof setLanguage === 'function') setLanguage(currentLang);
+            }
+        }
+
+        window.updateCtfPanel();
     };
 
     window.updateCtfPanel = function () {
@@ -703,7 +788,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (unlocked.length > 0 && shareBtn) {
             shareBtn.style.display = 'inline-flex';
         }
+
+        if (unlocked.includes(atob('cm9vdF91bmxvY2tlZA==')) || unlocked.includes(atob('Y2hhbGxlbmdlX2FjY2VwdGVk'))) {
+            document.body.classList.add('skill-security-unlocked');
+        } else {
+            document.body.classList.remove('skill-security-unlocked');
+        }
+
+        if (unlocked.includes(atob('a29uYW1pX2FjdGl2YXRlZA==')) || unlocked.includes(atob('cmVjZWl2ZV9tb2RlX2dhbWVy'))) {
+            document.body.classList.add('skill-gamer-unlocked');
+        } else {
+            document.body.classList.remove('skill-gamer-unlocked');
+        }
     };
+
+    // Run panel update on load to enforce global CTF effects even if panel is hidden
+    if (typeof window.updateCtfPanel === 'function') {
+        window.updateCtfPanel();
+    }
 
     window.shareCTFProgress = function () {
         let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');

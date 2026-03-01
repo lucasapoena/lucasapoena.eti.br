@@ -969,12 +969,14 @@ body.root-mode *:not(i):not(.fas):not(.fab) {
     display: none !important;
 }
 
-body.root-mode .hidden-skill {
+body.skill-security-unlocked #skill-card-security,
+body.skill-gamer-unlocked #skill-card-gamer {
     display: block !important;
     animation: fadeInReveal 0.8s ease-out forwards, skillUnlockPulse 3s ease-in-out infinite 0.8s;
 }
 
-body.root-mode .hidden-skill .skill-icon {
+body.skill-security-unlocked #skill-card-security .skill-icon,
+body.skill-gamer-unlocked #skill-card-gamer .skill-icon {
     animation: iconUnlockPulse 3s ease-in-out infinite 0.8s;
     display: inline-block;
 }
@@ -1215,4 +1217,60 @@ body.root-mode .bg-grid::before {
         word-break: break-all;
         overflow-wrap: anywhere;
     }
+}
+
+/* Flag Modal */
+.flag-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.flag-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.flag-modal-content {
+    background: var(--carbon);
+    border: 1px solid var(--system-green);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+    text-align: center;
+    padding: 2.5rem;
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.flag-modal.visible .flag-modal-content {
+    transform: translateY(0);
+}
+
+.flag-modal-title {
+    color: var(--system-green);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.flag-modal-desc {
+    margin-bottom: 2rem;
+}
+
+.flag-modal-btn {
+    width: 100%;
+    margin-top: 1rem;
 }

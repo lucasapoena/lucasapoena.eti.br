@@ -101,7 +101,12 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartilhar Progresso",
-            shareTemplate: "Acabei de desbloquear {0}/{1} flags no Apoena Flag Challenge v2026.1.0 🚀 Alguém já conseguiu todas? https://lucasapoena.eti.br"
+            shareTemplate: "Acabei de desbloquear {0}/{1} flags no Apoena Flag Challenge v2026.1.0 🚀 Alguém já conseguiu todas? https://lucasapoena.eti.br",
+            modalTitle: "FLAG DETECTADA!",
+            modalBtn: "[ Capturar Flag ]",
+            modalDescDefault: "Anomalia de sistema interceptada.",
+            modalDescRoot: "Anomalia de sistema interceptada.<br><br><span style='color: var(--system-green);'>+ Skill Extra Desbloqueada: Segurança & Engenharia Defensiva</span>",
+            modalDescGamer: "Anomalia de sistema interceptada.<br><br><span style='color: var(--system-green);'>+ Skill Extra Desbloqueada: Gamer & Chaos</span>"
         },
         consoleBoot: "SEQUÊNCIA DE INICIALIZAÇÃO DO SISTEMA...",
         godModeLog: "[MODO DEUS ATIVADO]",
@@ -195,7 +200,12 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Share Progress",
-            shareTemplate: "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0 🚀 Has anyone found them all yet? https://lucasapoena.eti.br"
+            shareTemplate: "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0 🚀 Has anyone found them all yet? https://lucasapoena.eti.br",
+            modalTitle: "FLAG DETECTED!",
+            modalBtn: "[ Capture Flag ]",
+            modalDescDefault: "System anomaly intercepted.",
+            modalDescRoot: "System anomaly intercepted.<br><br><span style='color: var(--system-green);'>+ Extra Skill Unlocked: Security & Defensive Engineering</span>",
+            modalDescGamer: "System anomaly intercepted.<br><br><span style='color: var(--system-green);'>+ Extra Skill Unlocked: Gamer & Chaos</span>"
         },
         consoleBoot: "SYSTEM BOOT SEQUENCE INITIATED...",
         godModeLog: "[GOD MODE ACTIVATED]",
@@ -291,7 +301,12 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartir Progreso",
-            shareTemplate: "¡Acabo de desbloquear {0}/{1} flags en el Apoena Flag Challenge v2026.1.0 🚀 ¿Alguien ya las encontró todas? https://lucasapoena.eti.br"
+            shareTemplate: "¡Acabo de desbloquear {0}/{1} flags en el Apoena Flag Challenge v2026.1.0 🚀 ¿Alguien ya las encontró todas? https://lucasapoena.eti.br",
+            modalTitle: "¡FLAG DETECTADA!",
+            modalBtn: "[ Capturar Flag ]",
+            modalDescDefault: "Anomalía de sistema interceptada.",
+            modalDescRoot: "Anomalía de sistema interceptada.<br><br><span style='color: var(--system-green);'>+ Habilidad Extra Desbloqueada: Seguridad e Ingeniería Defensiva</span>",
+            modalDescGamer: "Anomalía de sistema interceptada.<br><br><span style='color: var(--system-green);'>+ Habilidad Extra Desbloqueada: Gamer & Chaos</span>"
         },
         consoleBoot: "SECUENCIA DE INICIO DEL SISTEMA...",
         godModeLog: "[MODO DIOS ACTIVADO]",

@@ -314,11 +314,9 @@
                         </ul>
                     </div>
 
-                    <!-- Skill Card 5: Security (Hidden until Root Mode) -->
-                    <!-- LÓGICA DE EXIBIÇÃO: A classe `hidden-skill` mantém este card com `display: none` por padrão. 
-                         Quando o `body` recebe a classe `root-mode`, o CSS (`body.root-mode .hidden-skill`) altera o 
-                         display e aplica a animação de revelação, integrando-o ao grid de 3 colunas perfeitamente. -->
-                    <div class="structure-card reveal hidden-skill" style="transition-delay: 350ms;">
+                    <!-- Skill Card 5: Security (Hidden until Root Mode Flag) -->
+                    <div id="skill-card-security" class="structure-card reveal hidden-skill"
+                        style="transition-delay: 350ms;">
                         <div class="card-top">
                             <div class="skill-icon">
                                 <i class="fas fa-shield-halved"></i>
@@ -339,8 +337,9 @@
                         </ul>
                     </div>
 
-                    <!-- Skill Card 6: Chaos -->
-                    <div class="structure-card reveal hidden-skill" style="transition-delay: 400ms;">
+                    <!-- Skill Card 6: Chaos (Hidden until Konami/Gamer Flag) -->
+                    <div id="skill-card-gamer" class="structure-card reveal hidden-skill"
+                        style="transition-delay: 400ms;">
                         <div class="card-top">
                             <div class="skill-icon">
                                 <i class="fas fa-gamepad"></i>
@@ -434,6 +433,18 @@
             </div>
         </div>
     </footer>
+
+    <!-- Flag Discovery Modal -->
+    <div id="flag-modal" class="flag-modal hidden">
+        <div class="flag-modal-content structure-card">
+            <h3 class="flag-modal-title" data-i18n="ctf.modalTitle">FLAG DETECTADA!</h3>
+            <p class="flag-modal-desc font-code accent-text">System anomaly intercepted.</p>
+            <button class="btn btn-primary flag-modal-btn font-code" onclick="capturePendingFlag()"
+                data-i18n="ctf.modalBtn">
+                [ Capturar Flag ]
+            </button>
+        </div>
+    </div>
 
     <!-- JS -->
     <script src="assets/js/main.js"></script>
