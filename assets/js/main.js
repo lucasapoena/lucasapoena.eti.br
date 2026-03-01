@@ -97,51 +97,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Dynamic Status Check
-    let hasConnectedStatus = false;
+    let currentStatusKey = null;
+    let connectingInterval = null;
+    let connectTimeout = null;
 
     function updateSystemStatus() {
         const hour = new Date().getHours();
         const isOnline = hour >= 6 && hour < 20; // 06:00 to 19:59 (inclusive)
+        const isRoot = document.body.classList.contains('root-mode');
 
         const indicator = document.querySelector('.status-indicator');
         const statusText = document.querySelector('.status-text');
         const profilePic = document.querySelector('.hero-profile-pic');
 
         if (indicator && statusText) {
-            if (isOnline) {
-                if (!hasConnectedStatus) {
+            let targetKey = 'hero.statusOffline';
+            if (isRoot) {
+                targetKey = 'hero.statusRoot';
+            } else if (isOnline) {
+                targetKey = 'hero.statusOnline';
+            }
+
+            const currentLang = localStorage.getItem('site-lang') || 'pt';
+
+            if (targetKey !== currentStatusKey) {
+                currentStatusKey = targetKey;
+                clearInterval(connectingInterval);
+                clearTimeout(connectTimeout);
+
+                if (targetKey === 'hero.statusOffline') {
+                    // Instantly go offline
+                    indicator.classList.remove('connecting');
+                    indicator.classList.add('away');
+                    if (profilePic) profilePic.classList.add('away');
+                    statusText.setAttribute('data-i18n', targetKey);
+                    if (typeof setLanguage === 'function') setLanguage(currentLang);
+                } else {
+                    // Animate connection
                     indicator.classList.remove('away');
                     indicator.classList.add('connecting');
                     if (profilePic) profilePic.classList.remove('away');
-                    statusText.setAttribute('data-i18n', 'hero.statusConnecting');
 
-                    hasConnectedStatus = true;
+                    statusText.removeAttribute('data-i18n');
+                    let dotCount = 0;
 
-                    setTimeout(() => {
+                    connectingInterval = setInterval(() => {
+                        const curLangInterval = localStorage.getItem('site-lang') || 'pt';
+                        let transInterval = typeof translations !== 'undefined' ? translations[curLangInterval] : null;
+                        let baseText = transInterval ? transInterval.hero.statusConnecting : "STATUS: ESTABELECENDO CONEXÃO";
+                        dotCount = (dotCount + 1) % 4;
+                        statusText.textContent = baseText + ".".repeat(dotCount);
+                    }, 500);
+
+                    connectTimeout = setTimeout(() => {
+                        clearInterval(connectingInterval);
                         indicator.classList.remove('connecting');
-                        statusText.setAttribute('data-i18n', 'hero.statusOnline');
-                        const currentLang = localStorage.getItem('site-lang') || 'pt';
+                        statusText.setAttribute('data-i18n', targetKey);
+                        const currentLangFinal = localStorage.getItem('site-lang') || 'pt';
                         if (typeof setLanguage === 'function') {
-                            setLanguage(currentLang);
+                            setLanguage(currentLangFinal);
                         }
-                    }, 2500);
-                } else if (!indicator.classList.contains('connecting')) {
-                    indicator.classList.remove('away');
-                    if (profilePic) profilePic.classList.remove('away');
-                    statusText.setAttribute('data-i18n', 'hero.statusOnline');
+                    }, 5000);
                 }
-            } else {
-                indicator.classList.remove('connecting');
-                indicator.classList.add('away');
-                if (profilePic) profilePic.classList.add('away');
-                statusText.setAttribute('data-i18n', 'hero.statusOffline');
-                hasConnectedStatus = false;
-            }
-
-            // Re-run language update if it's already set
-            const currentLang = localStorage.getItem('site-lang') || 'pt';
-            if (typeof setLanguage === 'function') {
-                setLanguage(currentLang);
+            } else if (!indicator.classList.contains('connecting')) {
+                // If it's already the target state and animation is done, just ensure language is correct
+                statusText.setAttribute('data-i18n', targetKey);
+                if (typeof setLanguage === 'function') setLanguage(currentLang);
             }
         }
     }
@@ -159,14 +180,50 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 5. CTF Manual Activation
+    function deactivateCTFAndRoot() {
+        const panel = document.getElementById('ctf-panel');
+        if (panel) {
+            panel.classList.remove('force-visible');
+            localStorage.setItem('apoena_ctf_visible', 'false');
+        }
+
+        const btn = document.getElementById('activate-ctf-btn');
+        if (btn) {
+            btn.setAttribute('data-i18n', 'footer.activateCtfBtn');
+        }
+
+        if (document.body.classList.contains('root-mode')) {
+            document.body.classList.remove('root-mode');
+            const profileImg = document.querySelector('.hero-profile-pic img');
+            if (profileImg) profileImg.src = 'assets/img/profile.jpg';
+
+            updateSystemStatus();
+
+            const secretText = document.getElementById('footer-secret-text');
+            if (secretText) {
+                secretText.setAttribute('data-i18n', 'footer.secretHint');
+            }
+
+            const currentLang = localStorage.getItem('site-lang') || 'pt';
+            const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
+            const logoutMsg = trans && trans.consoleLogout ? trans.consoleLogout : "Root connection terminated.";
+            window.sysLog(logoutMsg, false);
+        }
+
+        const currentLang = localStorage.getItem('site-lang') || 'pt';
+        if (typeof setLanguage === 'function') {
+            setLanguage(currentLang);
+        }
+    }
+
     const activateCtfBtn = document.getElementById('activate-ctf-btn');
     if (activateCtfBtn) {
         activateCtfBtn.addEventListener('click', () => {
             const panel = document.getElementById('ctf-panel');
-            if (panel && panel.classList.contains('force-visible')) {
-                panel.classList.remove('force-visible');
-                localStorage.setItem('apoena_ctf_visible', 'false');
-                activateCtfBtn.setAttribute('data-i18n', 'footer.activateCtfBtn');
+            const isRootMode = document.body.classList.contains('root-mode');
+
+            if (isRootMode || (panel && panel.classList.contains('force-visible'))) {
+                deactivateCTFAndRoot();
             } else {
                 if (typeof window.unlockApoenaFlag === 'function') {
                     window.unlockApoenaFlag(atob('Y2hhbGxlbmdlX2FjY2VwdGVk'));
@@ -180,49 +237,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 activateCtfBtn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
-            }
 
-            // Re-apply translation immediately
-            const currentLang = localStorage.getItem('site-lang') || 'pt';
-            if (typeof setLanguage === 'function') {
-                setLanguage(currentLang);
-            }
-        });
-
-        // Initialize state on load
-        if (localStorage.getItem('apoena_ctf_visible') === 'true') {
-            const panel = document.getElementById('ctf-panel');
-            if (panel) {
-                panel.classList.add('force-visible');
-                activateCtfBtn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
-                if (typeof window.updateCtfPanel === 'function') {
-                    window.updateCtfPanel();
-                }
-            }
-        } else {
-            let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
-
-        }
-    }
-
-    const ctfCloseBtn = document.getElementById('ctf-close-btn');
-    if (ctfCloseBtn) {
-        ctfCloseBtn.addEventListener('click', () => {
-            const panel = document.getElementById('ctf-panel');
-            if (panel) {
-                panel.classList.remove('force-visible');
-                localStorage.setItem('apoena_ctf_visible', 'false');
-            }
-
-            const btn = document.getElementById('activate-ctf-btn');
-            if (btn) {
-                btn.setAttribute('data-i18n', 'footer.activateCtfBtn');
                 const currentLang = localStorage.getItem('site-lang') || 'pt';
                 if (typeof setLanguage === 'function') {
                     setLanguage(currentLang);
                 }
             }
         });
+
+        // Initialize state on load
+        if (localStorage.getItem('apoena_ctf_visible') === 'true' || document.body.classList.contains('root-mode')) {
+            const panel = document.getElementById('ctf-panel');
+            if (panel) {
+                if (localStorage.getItem('apoena_ctf_visible') === 'true') {
+                    panel.classList.add('force-visible');
+                }
+                activateCtfBtn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
+                if (typeof window.updateCtfPanel === 'function') {
+                    window.updateCtfPanel();
+                }
+            }
+        }
+    }
+
+    const ctfCloseBtn = document.getElementById('ctf-close-btn');
+    if (ctfCloseBtn) {
+        ctfCloseBtn.addEventListener('click', deactivateCTFAndRoot);
     }
 
     const currentLang = localStorage.getItem('site-lang') || 'pt';
@@ -242,32 +282,47 @@ document.addEventListener('DOMContentLoaded', () => {
             logoClickCount++;
 
             if (logoClickCount === 7) {
-                const isRootMode = document.body.classList.toggle('root-mode');
-                const profileImg = document.querySelector('.hero-profile-pic img');
-                if (profileImg) {
-                    profileImg.src = isRootMode ? 'assets/img/profile.jpeg' : 'assets/img/profile.jpg';
-                }
+                const wasRootMode = document.body.classList.contains('root-mode');
 
-                const secretText = document.getElementById('footer-secret-text');
-                if (secretText) {
-                    secretText.setAttribute('data-i18n', isRootMode ? 'footer.secretHintRoot' : 'footer.secretHint');
+                if (wasRootMode) {
+                    deactivateCTFAndRoot();
+                } else {
+                    document.body.classList.add('root-mode');
+                    const profileImg = document.querySelector('.hero-profile-pic img');
+                    if (profileImg) {
+                        profileImg.src = 'assets/img/profile.jpeg';
+                    }
+
+                    updateSystemStatus();
+
+                    let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
+                    if (typeof window.unlockApoenaFlag === 'function' && !unlocked.includes(atob('cm9vdF91bmxvY2tlZA=='))) {
+                        window.unlockApoenaFlag(atob('cm9vdF91bmxvY2tlZA=='));
+                    } else if (typeof window.updateCtfPanel === 'function') {
+                        window.updateCtfPanel(); // Refresh UI inside panel
+                    }
+
+                    const secretText = document.getElementById('footer-secret-text');
+                    if (secretText) {
+                        secretText.setAttribute('data-i18n', 'footer.secretHintRoot');
+                    }
+
+                    const btn = document.getElementById('activate-ctf-btn');
+                    if (btn) {
+                        btn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
+                    }
+
                     const currentLang = localStorage.getItem('site-lang') || 'pt';
                     if (typeof setLanguage === 'function') {
                         setLanguage(currentLang);
                     }
-                }
 
-                const currentLang = localStorage.getItem('site-lang') || 'pt';
-                const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
-                const activatingMsg = trans && trans.rootActivating ? trans.rootActivating : "ACTIVATING ROOT MODE...";
-                const grantedMsg = trans && trans.rootGranted ? trans.rootGranted : "Access granted...";
+                    const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
+                    const activatingMsg = trans && trans.rootActivating ? trans.rootActivating : "ACTIVATING ROOT MODE...";
+                    const grantedMsg = trans && trans.rootGranted ? trans.rootGranted : "Access granted...";
 
-                window.sysLog(activatingMsg, false);
-                window.sysLog(grantedMsg, true);
-
-                if (isRootMode && typeof window.unlockApoenaFlag === 'function') {
-                    window.unlockApoenaFlag(atob('cm9vdF91bmxvY2tlZA=='));
-                    window.updateCtfPanel();
+                    window.sysLog(activatingMsg, false);
+                    window.sysLog(grantedMsg, true);
                 }
 
                 logoClickCount = 0;
@@ -279,25 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (document.body.classList.contains('root-mode')) {
-                document.body.classList.remove('root-mode');
-
-                const profileImg = document.querySelector('.hero-profile-pic img');
-                if (profileImg) profileImg.src = 'assets/img/profile.jpg';
-
-                const secretText = document.getElementById('footer-secret-text');
-                if (secretText) {
-                    secretText.setAttribute('data-i18n', 'footer.secretHint');
-                    const currentLang = localStorage.getItem('site-lang') || 'pt';
-                    if (typeof setLanguage === 'function') {
-                        setLanguage(currentLang);
-                    }
-                }
-
-                const currentLang = localStorage.getItem('site-lang') || 'pt';
-                const logoutMsg = typeof translations !== 'undefined' && translations[currentLang] ? translations[currentLang].consoleLogout : "Root connection terminated.";
-                window.sysLog(logoutMsg);
-            }
+            deactivateCTFAndRoot();
         });
     }
 
@@ -401,6 +438,29 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.style.backgroundColor = 'var(--carbon)';
         diagram.appendChild(canvas);
 
+        if (window.innerWidth <= 768) {
+            const mobileCloseBtn = document.createElement('button');
+            mobileCloseBtn.id = 'snakeMobileCloseBtn';
+            mobileCloseBtn.innerHTML = '<i class="fas fa-times"></i>';
+            mobileCloseBtn.style.position = 'absolute';
+            mobileCloseBtn.style.top = '10px';
+            mobileCloseBtn.style.right = '10px';
+            mobileCloseBtn.style.zIndex = '101';
+            mobileCloseBtn.style.background = 'rgba(15, 23, 42, 0.7)';
+            mobileCloseBtn.style.color = '#94A3B8';
+            mobileCloseBtn.style.border = '1px solid var(--border-color)';
+            mobileCloseBtn.style.borderRadius = '4px';
+            mobileCloseBtn.style.fontSize = '20px';
+            mobileCloseBtn.style.cursor = 'pointer';
+            mobileCloseBtn.style.padding = '8px 12px';
+            mobileCloseBtn.onclick = () => {
+                if (document.getElementById('snakeGame')) {
+                    endGame();
+                }
+            };
+            diagram.appendChild(mobileCloseBtn);
+        }
+
         const ctx = canvas.getContext('2d');
         let box = 20;
 
@@ -438,7 +498,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
+        let snakeTouchStartX = 0;
+        let snakeTouchStartY = 0;
+
+        const touchStartHandler = (e) => {
+            snakeTouchStartX = e.changedTouches[0].screenX;
+            snakeTouchStartY = e.changedTouches[0].screenY;
+        };
+
+        const touchEndHandler = (e) => {
+            if (changingDirection) return;
+            const diffX = e.changedTouches[0].screenX - snakeTouchStartX;
+            const diffY = e.changedTouches[0].screenY - snakeTouchStartY;
+            const threshold = 30;
+
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > threshold && d != "LEFT") { d = "RIGHT"; changingDirection = true; }
+                else if (diffX < -threshold && d != "RIGHT") { d = "LEFT"; changingDirection = true; }
+            } else {
+                if (diffY > threshold && d != "UP") { d = "DOWN"; changingDirection = true; }
+                else if (diffY < -threshold && d != "DOWN") { d = "UP"; changingDirection = true; }
+            }
+        };
+
         document.addEventListener("keydown", directionHandler);
+        document.addEventListener("touchstart", touchStartHandler, { passive: true });
+        document.addEventListener("touchend", touchEndHandler, { passive: true });
 
         function drawGame() {
             changingDirection = false;
@@ -505,6 +590,9 @@ document.addEventListener('DOMContentLoaded', () => {
             snake.unshift(newHead);
 
             let scoreMsg = trans && trans.snakeScore ? trans.snakeScore.replace('{0}', score) : "SCORE: " + score + " | [ESC] EXIT";
+            if (window.innerWidth <= 768) {
+                scoreMsg = scoreMsg.split('|')[0].trim();
+            }
             ctx.fillStyle = "#94A3B8";
             ctx.font = "14px 'JetBrains Mono', monospace";
             ctx.fillText(scoreMsg, 10, 20);
@@ -575,6 +663,8 @@ document.addEventListener('DOMContentLoaded', () => {
         function endGame(msg) {
             clearInterval(gameLoop);
             document.removeEventListener("keydown", directionHandler);
+            document.removeEventListener("touchstart", touchStartHandler);
+            document.removeEventListener("touchend", touchEndHandler);
 
             const currentLang = localStorage.getItem('site-lang') || 'pt';
             const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
@@ -656,6 +746,8 @@ document.addEventListener('DOMContentLoaded', () => {
         function closeGame() {
             let overlay = document.getElementById('snake-overlay');
             if (overlay) overlay.remove();
+            let mobileBtn = document.getElementById('snakeMobileCloseBtn');
+            if (mobileBtn) mobileBtn.remove();
             canvas.remove();
             for (let i = 0; i < children.length; i++) {
                 children[i].style.display = originalDisplays[i];

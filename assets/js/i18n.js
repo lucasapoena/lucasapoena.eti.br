@@ -37,9 +37,10 @@ const translations = {
             connect: "Conectar"
         },
         hero: {
-            statusOnline: "STATUS: ONLINE",
-            statusConnecting: "STATUS: CONECTANDO...",
+            statusOnline: "STATUS: CONECTADO",
+            statusConnecting: "STATUS: ESTABELECENDO CONEXÃO",
             statusOffline: "STATUS: AUSENTE",
+            statusRoot: "STATUS: SECURE ROOT",
             name: "Lucas Apoena",
             role: "Desenvolvedor Sênior .NET (Full-Stack)",
             roleHighlight: "focado em modernização de sistemas e IA aplicada",
@@ -101,7 +102,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartilhar Progresso",
-            shareTemplate: "Acabei de desbloquear {0}/{1} flags no Apoena Flag Challenge v2026.1.0 🚀 Alguém já conseguiu todas? https://lucasapoena.eti.br",
+            shareTemplate: "Acabei de desbloquear {0}/{1} flags no Apoena Flag Challenge v2026.1.0 do @lucasapoena\n\n🚀 Tente você também, basta acessar o portfolio em:\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
             modalTitle: "FLAG DETECTADA!",
             modalBtn: "[ Capturar Flag ]",
             modalDescDefault: "Anomalia de sistema interceptada.",
@@ -122,7 +123,7 @@ const translations = {
         snakeRanking: "TOP 5 PONTUAÇÕES",
         snakeShareBtn: "Compartilhar",
         snakeCloseBtn: "Fechar Jogo",
-        snakeShareMsg: "Acabei de fazer {0} pontos no terminal remoto do portfólio do Lucas Apoena! Consegue bater meu recorde? https://lucasapoena.eti.br",
+        snakeShareMsg: "Acabei de fazer {0} pontos no terminal remoto do portfólio do @lucasapoena!\n\n🚀 Consegue bater meu recorde?\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
         snakeCheatMsg: "Boa tentativa, Mr. Robot! Mas descobrir o Base64 não vai te dar o recorde. 🕵️‍♂️",
         snakeHitchhikerMsg: "Parabéns, mochileiro! Você achou a resposta para a vida, o universo e tudo mais. Aqui estão os dados reais:",
         snakeGlitchMsg: "Recebendo solicitação Gamer...",
@@ -136,9 +137,10 @@ const translations = {
             connect: "Connect"
         },
         hero: {
-            statusOnline: "STATUS: ONLINE",
-            statusConnecting: "STATUS: CONNECTING...",
-            statusOffline: "STATUS: AWAY",
+            statusOnline: "STATUS: CONNECTED",
+            statusConnecting: "STATUS: ESTABLISHING CONNECTION",
+            statusOffline: "STATUS: OFFLINE",
+            statusRoot: "STATUS: SECURE ROOT",
             name: "Lucas Apoena",
             role: "Senior .NET Developer (Full-Stack)",
             roleHighlight: "focused on system modernization and applied AI",
@@ -200,7 +202,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Share Progress",
-            shareTemplate: "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0 🚀 Has anyone found them all yet? https://lucasapoena.eti.br",
+            shareTemplate: "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0 by @lucasapoena\n\n🚀 Try it yourself by visiting the portfolio at:\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
             modalTitle: "FLAG DETECTED!",
             modalBtn: "[ Capture Flag ]",
             modalDescDefault: "System anomaly intercepted.",
@@ -223,7 +225,7 @@ const translations = {
         snakeRanking: "TOP 5 SCORES",
         snakeShareBtn: "Share Score",
         snakeCloseBtn: "Close Game",
-        snakeShareMsg: "I just scored {0} points on the secret terminal in Lucas Apoena's portfolio! Can you beat my record? https://lucasapoena.eti.br",
+        snakeShareMsg: "I just scored {0} points on the secret terminal in @lucasapoena's portfolio!\n\n🚀 Can you beat my record?\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
         snakeCheatMsg: "Nice try, Mr. Robot! But breaking the Base64 won't get you the high score. 🕵️‍♂️",
         snakeHitchhikerMsg: "Congrats, hitchhiker! You found the answer to life, the universe, and everything. Here is the real data:",
         snakeGlitchMsg: "Receiving Gamer command...",
@@ -237,9 +239,10 @@ const translations = {
             connect: "Conectar"
         },
         hero: {
-            statusOnline: "ESTADO: EN LÍNEA",
-            statusConnecting: "ESTADO: CONECTANDO...",
+            statusOnline: "ESTADO: CONECTADO",
+            statusConnecting: "ESTADO: ESTABLECIENDO CONEXIÓN",
             statusOffline: "ESTADO: AUSENTE",
+            statusRoot: "ESTADO: ACCESO ROOT",
             name: "Lucas Apoena",
             role: "Desarrollador Senior .NET (Full-Stack)",
             roleHighlight: "enfocado en modernización de sistemas e IA aplicada",
@@ -301,7 +304,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartir Progreso",
-            shareTemplate: "¡Acabo de desbloquear {0}/{1} flags en el Apoena Flag Challenge v2026.1.0 🚀 ¿Alguien ya las encontró todas? https://lucasapoena.eti.br",
+            shareTemplate: "¡Acabo de desbloquear {0}/{1} flags en el Apoena Flag Challenge v2026.1.0 de @lucasapoena\n\n🚀 Inténtalo tú también visitando el portafolio en:\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
             modalTitle: "¡FLAG DETECTADA!",
             modalBtn: "[ Capturar Flag ]",
             modalDescDefault: "Anomalía de sistema interceptada.",
@@ -324,7 +327,7 @@ const translations = {
         snakeRanking: "TOP 5 PUNTUACIONES",
         snakeShareBtn: "Compartir",
         snakeCloseBtn: "Cerrar Juego",
-        snakeShareMsg: "¡Acabo de hacer {0} puntos en el terminal secreto del portafolio de Lucas Apoena! ¿Puedes superar mi récord? https://lucasapoena.eti.br",
+        snakeShareMsg: "¡Acabo de hacer {0} puntos en el terminal secreto del portafolio de @lucasapoena!\n\n🚀 ¿Puedes superar mi récord?\n\nhttps://lucasapoena.eti.br\n\n#CTF #ApoenaFlagChallenge",
         snakeCheatMsg: "¡Buen intento, Sr. Robot! Pero descifrar el Base64 no te dará el récord. 🕵️‍♂️",
         snakeHitchhikerMsg: "¡Felicidades, mochilero! Encontraste la respuesta a la vida, el universo y todo lo demás. Aquí están los datos reales:",
         snakeGlitchMsg: "Recibiendo comando Gamer...",

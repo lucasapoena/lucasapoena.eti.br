@@ -485,7 +485,6 @@ body.root-mode .system-status {
 
     50% {
         background-color: var(--system-green);
-        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
         transform: scale(1.1);
     }
 }
