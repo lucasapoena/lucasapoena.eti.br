@@ -341,15 +341,26 @@ document.addEventListener('DOMContentLoaded', () => {
         let originalObsText = "";
         let originalObsColor = "";
         let originalObsBorder = "";
+        let originalCursor = "";
+        let originalOnClick = null;
+
         if (obsBarText) {
             originalObsText = obsBarText.textContent;
             originalObsColor = obsBarText.parentElement.style.color;
             originalObsBorder = obsBarText.parentElement.style.borderColor;
+            originalCursor = obsBarText.parentElement.style.cursor || '';
+            originalOnClick = obsBarText.parentElement.onclick;
 
             let godObs = trans && trans.godModeActiveObs ? trans.godModeActiveObs : "Gamer Mode [ACTIVE]";
-            obsBarText.textContent = godObs;
+            obsBarText.innerHTML = `${godObs} <i class="fas fa-times" style="margin-left: 8px;" title="Exit"></i>`;
             obsBarText.parentElement.style.color = "#FF003C";
             obsBarText.parentElement.style.borderColor = "#FF003C";
+            obsBarText.parentElement.style.cursor = "pointer";
+            obsBarText.parentElement.onclick = () => {
+                if (document.getElementById('snakeGame')) {
+                    endGame();
+                }
+            };
         }
 
         const children = diagram.children;
@@ -630,6 +641,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 obsBarText.textContent = originalObsText;
                 obsBarText.parentElement.style.color = originalObsColor;
                 obsBarText.parentElement.style.borderColor = originalObsBorder;
+                obsBarText.parentElement.style.cursor = originalCursor;
+                obsBarText.parentElement.onclick = originalOnClick;
             }
             document.body.style.overflow = 'auto';
         }
