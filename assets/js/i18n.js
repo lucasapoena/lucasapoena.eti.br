@@ -101,7 +101,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartilhar Progresso",
-            shareTemplate: "Acabei de desbloquear {0}/5 flags no Apoena Flag Challenge v2026.1.0! 🏴‍☠️ Consegue achar todas? https://lucasapoena.eti.br"
+            shareTemplate: "Acabei de desbloquear {0}/{1} flags no Apoena Flag Challenge v2026.1.0 🚀 Alguém já conseguiu todas? https://lucasapoena.eti.br"
         },
         consoleBoot: "SEQUÊNCIA DE INICIALIZAÇÃO DO SISTEMA...",
         godModeLog: "[MODO DEUS ATIVADO]",
@@ -113,6 +113,7 @@ const translations = {
         rootGranted: "Acesso garantido...",
         snakeScore: "PONTOS: {0} | [ESC] SAIR",
         snakeGameOver: "FIM DE JOGO",
+        snakeFinalScore: "PONTUAÇÃO:",
         snakeRanking: "TOP 5 PONTUAÇÕES",
         snakeShareBtn: "Compartilhar",
         snakeCloseBtn: "Fechar Jogo",
@@ -194,7 +195,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Share Progress",
-            shareTemplate: "I just unlocked {0}/5 flags on the Apoena Flag Challenge v2026.1.0! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br"
+            shareTemplate: "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0 🚀 Has anyone found them all yet? https://lucasapoena.eti.br"
         },
         consoleBoot: "SYSTEM BOOT SEQUENCE INITIATED...",
         godModeLog: "[GOD MODE ACTIVATED]",
@@ -206,6 +207,7 @@ const translations = {
         rootGranted: "Access granted...",
         snakeScore: "SCORE: {0} | [ESC] EXIT",
         snakeGameOver: "GAME OVER",
+        snakeFinalScore: "SCORE:",
         snakeGameOver42: "DON'T PANIC 🤖",
         snakeSubtitle42: "\"The Answer to Life, the Universe, and Everything.\"",
         snakeRanking: "TOP 5 SCORES",
@@ -289,7 +291,7 @@ const translations = {
         ctf: {
             title: "Apoena Flag Challenge v2026.1.0",
             share: "Compartir Progreso",
-            shareTemplate: "¡Acabo de desbloquear {0}/5 flags en el Apoena Flag Challenge v2026.1.0! 🏴‍☠️ ¿Puedes encontrarlas todas? https://lucasapoena.eti.br"
+            shareTemplate: "¡Acabo de desbloquear {0}/{1} flags en el Apoena Flag Challenge v2026.1.0 🚀 ¿Alguien ya las encontró todas? https://lucasapoena.eti.br"
         },
         consoleBoot: "SECUENCIA DE INICIO DEL SISTEMA...",
         godModeLog: "[MODO DIOS ACTIVADO]",
@@ -301,6 +303,7 @@ const translations = {
         rootGranted: "Acceso garantizado...",
         snakeScore: "PUNTOS: {0} | [ESC] SALIR",
         snakeGameOver: "FIN DEL JUEGO",
+        snakeFinalScore: "PUNTUACIÓN:",
         snakeGameOver42: "NO ENTRES EN PÁNICO 🤖",
         snakeSubtitle42: "\"La respuesta a la vida, el universo y todo lo demás.\"",
         snakeRanking: "TOP 5 PUNTUACIONES",

@@ -188,6 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 setLanguage(currentLang);
             }
         });
+
+        // Initialize state on load
+        if (localStorage.getItem('apoena_ctf_visible') === 'true') {
+            const panel = document.getElementById('ctf-panel');
+            if (panel) {
+                panel.classList.add('force-visible');
+                activateCtfBtn.setAttribute('data-i18n', 'footer.pauseCtfBtn');
+                if (typeof window.updateCtfPanel === 'function') {
+                    window.updateCtfPanel();
+                }
+            }
+        } else {
+            let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
+            // In case they have the flag but haven't made it visible:
+            // Since the user might expect it to restore if the flag is unlocked.
+            // But let's rely just on apoena_ctf_visible.
+        }
     }
 
     const ctfCloseBtn = document.getElementById('ctf-close-btn');
@@ -304,7 +321,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window._sys_agm = activateGodMode;
+    window._sys_agm = function () {
+        if (typeof window.unlockApoenaFlag === 'function') {
+            window.unlockApoenaFlag(atob('cmVjZWl2ZV9tb2RlX2dhbWVy'));
+        }
+        activateGodMode();
+    };
+
     function activateGodMode() {
         const currentLang = localStorage.getItem('site-lang') || 'pt';
         const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
@@ -558,11 +581,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? (trans && trans.snakeGameOver42 ? trans.snakeGameOver42 : "DON'T PANIC 🤖")
                     : (trans && trans.snakeGameOver ? trans.snakeGameOver : "GAME OVER");
 
+                let finalScoreTxt = trans && trans.snakeFinalScore ? trans.snakeFinalScore : "SCORE:";
+
                 let subtitleFallback = score === 42 ? "\"The Answer to Life, the Universe, and Everything.\"" : "";
                 let subtitleText = score === 42 ? (trans && trans.snakeSubtitle42 ? trans.snakeSubtitle42 : subtitleFallback) : "";
                 let subtitleHtml = score === 42
-                    ? `<p style="color:var(--white); font-size:1.25rem; margin-bottom:0.5rem;">SCORE: <span style="color:${titleColor}; font-weight:bold;">${score}</span></p><p style="color:var(--muted-gray); font-size:0.95rem; font-style:italic; margin-bottom:1.5rem; max-width:80%; text-align:center;">${subtitleText}</p>`
-                    : `<p style="color:var(--white); font-size:1.25rem; margin-bottom:1.5rem;">SCORE: <span style="color:#22C55E; font-weight:bold;">${score}</span></p>`;
+                    ? `<p style="color:var(--white); font-size:1.25rem; margin-bottom:0.5rem;">${finalScoreTxt} <span style="color:${titleColor}; font-weight:bold;">${score}</span></p><p style="color:var(--muted-gray); font-size:0.95rem; font-style:italic; margin-bottom:1.5rem; max-width:80%; text-align:center;">${subtitleText}</p>`
+                    : `<p style="color:var(--white); font-size:1.25rem; margin-bottom:1.5rem;">${finalScoreTxt} <span style="color:#22C55E; font-weight:bold;">${score}</span></p>`;
 
                 overlay.innerHTML = `
                     <h3 style="color:${titleColor}; font-size:2.2rem; margin-bottom:0.5rem; text-shadow:0 0 10px ${titleShadow}; font-weight:bold; letter-spacing:1px; text-align:center; text-transform:uppercase;">${gameOverTxt}</h3>
@@ -615,6 +640,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Apoena Flag Challenge v2026.1.0 Logic
+    window.TOTAL_CTF_FLAGS = 6;
+
     window.unlockApoenaFlag = function (flagName) {
         let unlocked = JSON.parse(localStorage.getItem('apoena_ctf_unlocked') || '[]');
         if (!unlocked.includes(flagName)) {
@@ -637,6 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const flagMapping = {
             [atob('Y2hhbGxlbmdlX2FjY2VwdGVk')]: { status: 'flag-start-status', textId: 'flag-start-text', textVal: atob('ZmxhZ3tjaGFsbGVuZ2VfYWNjZXB0ZWR9') },
             [atob('cm9vdF91bmxvY2tlZA==')]: { status: 'flag-root-status', textId: 'flag-root-text', textVal: atob('ZmxhZ3tyb290X3VubG9ja2VkfQ==') },
+            [atob('cmVjZWl2ZV9tb2RlX2dhbWVy')]: { status: 'flag-glitch-status', textId: 'flag-glitch-text', textVal: atob('ZmxhZ3tyZWNlaXZlX21vZGVfZ2FtZXJ9') },
             [atob('a29uYW1pX2FjdGl2YXRlZA==')]: { status: 'flag-konami-status', textId: 'flag-konami-text', textVal: atob('ZmxhZ3trb25hbWlfYWN0aXZhdGVkfQ==') },
             [atob('c25ha2VfbWFzdGVy')]: { status: 'flag-snake-status', textId: 'flag-snake-text', textVal: atob('ZmxhZ3tzbmFrZV9tYXN0ZXJ9') },
             [atob('aGl0Y2hoaWtlcl80Mg==')]: { status: 'flag-42-status', textId: 'flag-42-text', textVal: atob('ZmxhZ3toaXRjaGhpa2VyXzQyfQ==') }
@@ -671,8 +699,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentLang = localStorage.getItem('site-lang') || 'pt';
         const trans = typeof translations !== 'undefined' ? translations[currentLang] : null;
 
-        let msgTemplate = trans && trans.ctf && trans.ctf.shareTemplate ? trans.ctf.shareTemplate : "I just unlocked {0}/5 flags on the Apoena Flag Challenge v2026.1.0! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br";
-        let finalMsg = msgTemplate.replace('{0}', unlocked.length);
+        let msgTemplate = trans && trans.ctf && trans.ctf.shareTemplate ? trans.ctf.shareTemplate : "I just unlocked {0}/{1} flags on the Apoena Flag Challenge v2026.1.0! 🏴‍☠️ Can you find them all? https://lucasapoena.eti.br";
+        let finalMsg = msgTemplate.replace('{0}', unlocked.length).replace('{1}', window.TOTAL_CTF_FLAGS);
 
         window.open(`https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(finalMsg)}`, '_blank');
     };
