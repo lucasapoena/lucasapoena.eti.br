@@ -57,11 +57,11 @@ Código legível e objetivo.
 
 ---
 
-# 🏴 Apoena Flag Challenge
+# 🏴 Apoena Flag Challenge v2026.1.0
 
 O portfólio também possui uma camada interativa chamada:
 
-> **Apoena Flag Challenge**
+> **Apoena Flag Challenge v2026.1.0**
 
 Trata-se de um pequeno desafio escondido na interface para quem gosta de explorar além do óbvio.
 
