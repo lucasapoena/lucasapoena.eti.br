@@ -97,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Dynamic Status Check
+    let hasConnectedStatus = false;
+
     function updateSystemStatus() {
         const hour = new Date().getHours();
         const isOnline = hour >= 6 && hour < 20; // 06:00 to 19:59 (inclusive)
@@ -107,13 +109,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (indicator && statusText) {
             if (isOnline) {
-                indicator.classList.remove('away');
-                if (profilePic) profilePic.classList.remove('away');
-                statusText.setAttribute('data-i18n', 'hero.statusOnline');
+                if (!hasConnectedStatus) {
+                    indicator.classList.remove('away');
+                    indicator.classList.add('connecting');
+                    if (profilePic) profilePic.classList.remove('away');
+                    statusText.setAttribute('data-i18n', 'hero.statusConnecting');
+
+                    hasConnectedStatus = true;
+
+                    setTimeout(() => {
+                        indicator.classList.remove('connecting');
+                        statusText.setAttribute('data-i18n', 'hero.statusOnline');
+                        const currentLang = localStorage.getItem('site-lang') || 'pt';
+                        if (typeof setLanguage === 'function') {
+                            setLanguage(currentLang);
+                        }
+                    }, 2500);
+                } else if (!indicator.classList.contains('connecting')) {
+                    indicator.classList.remove('away');
+                    if (profilePic) profilePic.classList.remove('away');
+                    statusText.setAttribute('data-i18n', 'hero.statusOnline');
+                }
             } else {
+                indicator.classList.remove('connecting');
                 indicator.classList.add('away');
                 if (profilePic) profilePic.classList.add('away');
                 statusText.setAttribute('data-i18n', 'hero.statusOffline');
+                hasConnectedStatus = false;
             }
 
             // Re-run language update if it's already set

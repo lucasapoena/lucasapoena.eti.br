@@ -454,6 +454,12 @@ body.root-mode .system-status {
     animation: statusPulseAway 2s ease-in-out infinite;
 }
 
+.status-indicator.connecting {
+    background-color: var(--muted-gray);
+    box-shadow: 0 0 10px rgba(100, 116, 139, 0.5);
+    animation: statusPulseConnecting 1.5s ease-in-out infinite;
+}
+
 @keyframes statusPulse {
 
     0%,
@@ -463,6 +469,22 @@ body.root-mode .system-status {
     }
 
     50% {
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
+        transform: scale(1.1);
+    }
+}
+
+@keyframes statusPulseConnecting {
+
+    0%,
+    100% {
+        background-color: var(--muted-gray);
+        box-shadow: 0 0 10px rgba(100, 116, 139, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        background-color: var(--system-green);
         box-shadow: 0 0 20px rgba(34, 197, 94, 0.8);
         transform: scale(1.1);
     }
@@ -949,7 +971,40 @@ body.root-mode *:not(i):not(.fas):not(.fab) {
 
 body.root-mode .hidden-skill {
     display: block !important;
-    animation: fadeInReveal 0.8s ease-out forwards;
+    animation: fadeInReveal 0.8s ease-out forwards, skillUnlockPulse 3s ease-in-out infinite 0.8s;
+}
+
+body.root-mode .hidden-skill .skill-icon {
+    animation: iconUnlockPulse 3s ease-in-out infinite 0.8s;
+    display: inline-block;
+}
+
+@keyframes skillUnlockPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+        border-color: rgba(0, 255, 65, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+        border-color: var(--system-green);
+    }
+}
+
+@keyframes iconUnlockPulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px rgba(0, 255, 65, 0.2);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 15px var(--system-green);
+        transform: scale(1.1);
+    }
 }
 
 @keyframes fadeInReveal {

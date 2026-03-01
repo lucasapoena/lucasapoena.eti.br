@@ -38,6 +38,7 @@ const translations = {
         },
         hero: {
             statusOnline: "STATUS: ONLINE",
+            statusConnecting: "STATUS: CONECTANDO...",
             statusOffline: "STATUS: AUSENTE",
             name: "Lucas Apoena",
             role: "Desenvolvedor Sênior .NET (Full-Stack)",
@@ -68,7 +69,12 @@ const translations = {
             },
             ai: {
                 title: "Arquitetura & IA",
-                desc: "Aplicando padrões arquiteturais como Clean Architecture e DDD, além de integrar LLMs em ambientes reais de produção para automação e AI-assisted engineering."
+                desc: "Aplicando padrões arquiteturais como Clean Architecture e DDD, além de integrar LLMs em ambientes de produção reais para automação e AI-assisted engineering."
+            },
+            security: {
+                title: "Segurança & Engenharia Defensiva",
+                desc: "Aplicando princípios de segurança no desenvolvimento de software, com foco em código defensivo, validação rigorosa de entradas e mitigação de vulnerabilidades comuns. Experiência com desafios CTF e mentalidade orientada à proteção de aplicações e dados.",
+                tags: ["OWASP", "Secure Coding", "CTF", "Input Validation", "Auth & JWT"]
             },
             chaos: {
                 title: "Skill Unlocked: Gamer & Chaos",
@@ -125,6 +131,7 @@ const translations = {
         },
         hero: {
             statusOnline: "STATUS: ONLINE",
+            statusConnecting: "STATUS: CONNECTING...",
             statusOffline: "STATUS: AWAY",
             name: "Lucas Apoena",
             role: "Senior .NET Developer (Full-Stack)",
@@ -156,6 +163,11 @@ const translations = {
             ai: {
                 title: "Architecture & AI",
                 desc: "Applying architectural patterns such as Clean Architecture and DDD, besides integrating LLMs into production environments for automation and AI-assisted engineering."
+            },
+            security: {
+                title: "Security & Defensive Engineering",
+                desc: "Applying security principles in software development, focusing on defensive code, rigorous input validation, and mitigation of common vulnerabilities. Experience with CTF challenges and an application/data protection-oriented mindset.",
+                tags: ["OWASP", "Secure Coding", "CTF", "Input Validation", "Auth & JWT"]
             },
             chaos: {
                 title: "Skill Unlocked: Gamer & Chaos",
@@ -214,6 +226,7 @@ const translations = {
         },
         hero: {
             statusOnline: "ESTADO: EN LÍNEA",
+            statusConnecting: "ESTADO: CONECTANDO...",
             statusOffline: "ESTADO: AUSENTE",
             name: "Lucas Apoena",
             role: "Desarrollador Senior .NET (Full-Stack)",
@@ -245,6 +258,11 @@ const translations = {
             ai: {
                 title: "Arquitectura e IA",
                 desc: "Aplicando patrones arquitectónicos como Clean Architecture y DDD, además de integrar LLMs en entornos de producción reales para automatización y AI-assisted engineering."
+            },
+            security: {
+                title: "Seguridad e Ingeniería Defensiva",
+                desc: "Aplicando principios de seguridad en el desarrollo de software, centrándose en código defensivo, validación rigurosa de entradas y mitigación de vulnerabilidades comunes. Experiencia con desafíos CTF y una mentalidad orientada a la protección de aplicaciones y datos.",
+                tags: ["OWASP", "Secure Coding", "CTF", "Input Validation", "Auth & JWT"]
             },
             chaos: {
                 title: "Habilidad Desbloqueada: Estrategia & Caos",

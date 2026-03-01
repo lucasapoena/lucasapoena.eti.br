@@ -301,7 +301,32 @@
                         </ul>
                     </div>
 
-                    <!-- Skill Card 5: Chaos -->
+                    <!-- Skill Card 5: Security (Hidden until Root Mode) -->
+                    <!-- LÓGICA DE EXIBIÇÃO: A classe `hidden-skill` mantém este card com `display: none` por padrão. 
+                         Quando o `body` recebe a classe `root-mode`, o CSS (`body.root-mode .hidden-skill`) altera o 
+                         display e aplica a animação de revelação, integrando-o ao grid de 3 colunas perfeitamente. -->
+                    <div class="structure-card reveal hidden-skill" style="transition-delay: 350ms;">
+                        <div class="card-top">
+                            <div class="skill-icon">
+                                <i class="fas fa-shield-halved"></i>
+                            </div>
+                            <span class="font-code accent-text">sys.security</span>
+                        </div>
+                        <h3 data-i18n="skills.security.title">Segurança & Engenharia Defensiva</h3>
+                        <p data-i18n="skills.security.desc">Aplicando princípios de segurança no desenvolvimento de
+                            software, com foco em código defensivo, validação rigorosa de entradas e mitigação de
+                            vulnerabilidades comuns. Experiência com desafios CTF e mentalidade orientada à proteção de
+                            aplicações e dados.</p>
+                        <ul class="tech-list font-code">
+                            <li data-i18n="skills.security.tags.0">OWASP</li>
+                            <li data-i18n="skills.security.tags.1">Secure Coding</li>
+                            <li data-i18n="skills.security.tags.2">CTF</li>
+                            <li data-i18n="skills.security.tags.3">Input Validation</li>
+                            <li data-i18n="skills.security.tags.4">Auth & JWT</li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Card 6: Chaos -->
                     <div class="structure-card reveal hidden-skill" style="transition-delay: 400ms;">
                         <div class="card-top">
                             <div class="skill-icon">
