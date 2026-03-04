@@ -612,7 +612,7 @@ body.root-mode .system-status {
 .blueprint-diagram {
     position: relative;
     width: 100%;
-    height: 440px;
+    height: 640px;
     border: 1px solid var(--border-color);
     border-radius: 16px;
     background: var(--carbon);
@@ -675,33 +675,40 @@ body.root-mode .system-status {
     font-size: 1.5rem;
 }
 
-.node.gw-node {
-    top: 15%;
+.node.entry-node {
+    top: 12%;
     left: 50%;
 }
 
-.node.compute-node {
-    top: 50%;
-    left: 25%;
+.node.app-node {
+    top: 38%;
+    left: 50%;
     border-color: var(--border-color);
     color: var(--slate-text);
 }
 
-.node.messaging-node {
-    top: 50%;
-    left: 75%;
+.node.llm-node {
+    top: 38%;
+    left: 18%;
+}
+
+.node.bus-node {
+    top: 38%;
+    left: 82%;
     border-color: var(--border-color);
     color: var(--slate-text);
 }
 
-.node.ai-node {
-    top: 85%;
-    left: 25%;
+.node.domain-node {
+    top: 64%;
+    left: 50%;
+    border-color: var(--border-color);
+    color: var(--slate-text);
 }
 
-.node.data-node {
-    top: 85%;
-    left: 75%;
+.node.storage-node {
+    top: 90%;
+    left: 50%;
     border-color: var(--border-color);
     color: var(--slate-text);
 }
@@ -739,39 +746,53 @@ body.root-mode .system-status {
     z-index: 1;
 }
 
+/* Entry → Application */
 .line-1 {
-    top: 32.5%;
-    left: 37.5%;
-    width: 35%;
+    top: 25%;
+    left: 50%;
+    width: 1px;
+    height: 26%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, var(--system-green), var(--border-color));
+}
+
+/* LLM Adapter ↔ Application */
+.line-2 {
+    top: 38%;
+    left: 34%;
+    width: 32%;
     height: 1px;
-    transform: translate(-50%, -50%) rotate(125deg);
+    transform: translate(-50%, -50%);
     background: linear-gradient(90deg, var(--system-green), var(--border-color));
 }
 
-.line-2 {
-    top: 32.5%;
-    left: 62.5%;
-    width: 35%;
-    height: 1px;
-    transform: translate(-50%, -50%) rotate(55deg);
-    background: linear-gradient(-90deg, var(--system-green), var(--border-color));
-}
-
+/* Application ↔ Event Bus */
 .line-3 {
-    top: 67.5%;
-    left: 25%;
-    width: 35%;
+    top: 38%;
+    left: 66%;
+    width: 32%;
     height: 1px;
-    transform: translate(-50%, -50%) rotate(90deg);
+    transform: translate(-50%, -50%);
 }
 
+/* Application → Domain Core */
 .line-4 {
-    top: 67.5%;
-    left: 75%;
-    width: 35%;
-    height: 1px;
-    transform: translate(-50%, -50%) rotate(90deg);
+    top: 51%;
+    left: 50%;
+    width: 1px;
+    height: 26%;
+    transform: translate(-50%, -50%);
 }
+
+/* Domain → Data Layer */
+.line-5 {
+    top: 77%;
+    left: 50%;
+    width: 1px;
+    height: 26%;
+    transform: translate(-50%, -50%);
+}
+
 
 
 /* About */
@@ -1183,7 +1204,7 @@ body.root-mode .bg-grid::before {
         width: 100%;
         max-width: none;
         height: auto;
-        aspect-ratio: 600 / 440;
+        aspect-ratio: 600 / 640;
         transform: none;
         margin-bottom: 0;
     }

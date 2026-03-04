@@ -164,37 +164,62 @@
                     <div class="blueprint-diagram">
                         <div class="blueprint-grid"></div>
 
-                        <!-- Main Nodes -->
-                        <div class="node gw-node">
-                            <i class="fas fa-network-wired"></i>
-                            <span class="font-code">API Gateway</span>
+                        <!-- Layer 1: Entry Layer -->
+                        <div class="node entry-node">
+                            <i class="fas fa-shield-halved"></i>
+                            <span class="font-code">Entry Layer</span>
                         </div>
+
+                        <!-- Connection: Entry → Application -->
                         <div class="connection line-1"></div>
-                        <div class="node compute-node">
-                            <i class="fas fa-microchip"></i>
-                            <span class="font-code text-center">Application Services<br>(Cloud Compute)</span>
-                        </div>
-                        <div class="connection line-2"></div>
-                        <div class="node messaging-node">
-                            <i class="fas fa-envelope-open-text"></i>
-                            <span class="font-code text-center">Messaging Layer<br>(Event-Driven)</span>
-                        </div>
-                        <div class="connection line-3"></div>
-                        <div class="node ai-node">
+
+                        <!-- Lateral Left: LLM Adapter -->
+                        <div class="node llm-node">
                             <i class="fas fa-robot"></i>
-                            <span class="font-code text-center">Applied AI Layer <br /> (LLM)</span>
+                            <span class="font-code text-center">LLM Adapter</span>
                         </div>
+
+                        <!-- Connection: LLM ↔ Application -->
+                        <div class="connection line-2"></div>
+
+                        <!-- Layer 2: Application Layer -->
+                        <div class="node app-node">
+                            <i class="fas fa-microchip"></i>
+                            <span class="font-code text-center">Application<br>Layer</span>
+                        </div>
+
+                        <!-- Connection: Application ↔ Event Bus -->
+                        <div class="connection line-3"></div>
+
+                        <!-- Lateral Right: Event Bus -->
+                        <div class="node bus-node">
+                            <i class="fas fa-bolt"></i>
+                            <span class="font-code text-center">Event Bus<br>(Async)</span>
+                        </div>
+
+                        <!-- Connection: Application → Domain Core -->
                         <div class="connection line-4"></div>
-                        <div class="node data-node">
+
+                        <!-- Layer 3: Domain Core -->
+                        <div class="node domain-node">
+                            <i class="fas fa-cubes"></i>
+                            <span class="font-code text-center">Domain Core<br>(Business)</span>
+                        </div>
+
+                        <!-- Connection: Domain → Data Layer -->
+                        <div class="connection line-5"></div>
+
+                        <!-- Layer 4: Data Layer -->
+                        <div class="node storage-node">
                             <i class="fas fa-database"></i>
-                            <span class="font-code text-center">Data &amp; Storage<br>Layer</span>
+                            <span class="font-code text-center">Data Layer</span>
                         </div>
                     </div>
 
                     <!-- Observability Footer Bar -->
                     <div class="obs-bar">
                         <i class="fas fa-chart-line"></i>
-                        <span class="font-code">Observability (Logs, Metrics, Tracing)</span>
+                        <span class="font-code">Observability (Logs · Metrics · Tracing)</span>
                     </div>
                 </div>
             </div>
